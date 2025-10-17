@@ -1,4 +1,5 @@
 __pycache__/
+botDispatcher/__pycache__/
 .venv
 botDB.sqlite
 .env
