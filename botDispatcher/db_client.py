@@ -1,0 +1,27 @@
+import sqlite3
+import os
+import json
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def recreateDatabase() -> None:
+    connection = sqlite3.connect(os.getenv('SQLITE_DB_PATH'))
+    with connection:
+        connection.execute("DROP TABLE IF EXISTS telegram_updates")
+        connection.execute("""
+                           CREATE TABLE IF NOT EXISTS telegram_updates
+                           (
+                                id INTEGER PRIMARY KEY,
+                                payload TEXT NOT NULL
+                           )
+                           """
+                           )
+
+def persistUpdates(updates: list) -> None:
+    connection = sqlite3.connect(os.getenv("SQLITE_DB_PATH"))
+    with connection:
+        data = []
+        for update in updates:
+            data.append((json.dumps(update, ensure_ascii=False),))
+        connection.executemany("INSERT INTO telegram_updates (payload) VALUES (?)", data,)
