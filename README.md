@@ -20,7 +20,7 @@
 Экран: «Выберите действие» и инлайн-кнопки:
 - `🔁 Ping (ICMP)`
 - `🔎 DNS /ns`
-- `🪪 WHOIS`
+- `❓ WHOIS`
 - `🔐 TLS info`
 - `🧭 My IP`
 
@@ -63,16 +63,25 @@
 ## Архитектура (обзор)
 
 ### Поток обработки
-Telegram (getUpdates)
+Telegram (`getUpdates`)
+
 │
+
 ▼
-long_polling.py -> dispatcher.py -> handlers/* -> telegram_client.py
+
+`long_polling.py` -> `dispatcher.py` -> `handlers/`* -> `telegram_client.py`
+
 ▲
+
 │
-net_tools/*
+
+`net_tools/`*
+
 │
+
 ▼
-db_client.py (SQLite)
+
+`db_client.py` (SQLite)
 
 
 ### Паттерны
