@@ -1,6 +1,6 @@
-from littleNetHelper.db_client import ensureUserExists
-from littleNetHelper.handlers.handler import Handler
-from littleNetHelper.handlers.handler_status import HandlerStatus
+from bot.db_client import ensureUserExists
+from bot.handlers.handler import Handler
+from bot.handlers.handler_status import HandlerStatus
 
 
 class EnsureUserExists(Handler):

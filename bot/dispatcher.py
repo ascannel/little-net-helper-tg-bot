@@ -2,9 +2,9 @@ from __future__ import annotations
 import json
 import traceback
 
-from littleNetHelper.handlers.handler import Handler
-from littleNetHelper.handlers.handler_status import HandlerStatus
-from littleNetHelper.db_client import getUser
+from bot.handlers.handler import Handler
+from bot.handlers.handler_status import HandlerStatus
+from bot.db_client import getUser
 
 class Dispatcher:
     def __init__(self) -> None:

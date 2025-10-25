@@ -1,7 +1,7 @@
-from littleNetHelper.long_polling import startLongPolling
-from littleNetHelper.handlers.db_handler import UpdateDB
-from littleNetHelper.dispatcher import Dispatcher
-from littleNetHelper.handlers import getHandlers
+from bot.long_polling import startLongPolling
+from bot.handlers.db_handler import UpdateDB
+from bot.dispatcher import Dispatcher
+from bot.handlers import getHandlers
 
 if __name__ == "__main__":
     try:

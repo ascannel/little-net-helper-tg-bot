@@ -1,6 +1,6 @@
 import json
 from abc import ABC, abstractmethod
-from littleNetHelper.handlers.handler_status import HandlerStatus
+from bot.handlers.handler_status import HandlerStatus
 
 class Handler(ABC):
     @abstractmethod

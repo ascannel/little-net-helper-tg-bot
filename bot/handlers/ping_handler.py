@@ -1,10 +1,10 @@
 import ipaddress
 import re
 
-from littleNetHelper.handlers.handler import Handler
-from littleNetHelper.handlers.handler_status import HandlerStatus
-from littleNetHelper import telegram_client, db_client
-from littleNetHelper.net_tools import ping as ping_tool
+from bot.handlers.handler import Handler
+from bot.handlers.handler_status import HandlerStatus
+from bot import telegram_client, db_client
+from bot.net_tools import ping as ping_tool
 
 PING_WAIT_STATE = "PING_WAIT_TARGET"
 

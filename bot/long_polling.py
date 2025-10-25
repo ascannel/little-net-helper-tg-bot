@@ -1,5 +1,5 @@
-from littleNetHelper.dispatcher import Dispatcher
-import littleNetHelper.telegram_client
+from bot.dispatcher import Dispatcher
+import bot.telegram_client
 import time
 import traceback
 
@@ -7,7 +7,7 @@ def startLongPolling(dispatcher: Dispatcher) -> None:
     next_offset = 0
     while True:
         try:
-            updates = littleNetHelper.telegram_client.getUpdates(
+            updates = bot.telegram_client.getUpdates(
                 offset=next_offset, timeout=50, limit=100
             )
         except Exception as e:

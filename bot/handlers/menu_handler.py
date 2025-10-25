@@ -1,6 +1,6 @@
-from littleNetHelper.handlers.handler import Handler
-from littleNetHelper.handlers.handler_status import HandlerStatus
-from littleNetHelper import telegram_client, db_client
+from bot.handlers.handler import Handler
+from bot.handlers.handler_status import HandlerStatus
+from bot import telegram_client, db_client
 
 MAIN_MENU_KB = {
     "inline_keyboard": [
