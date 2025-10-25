@@ -1,3 +1,3 @@
-import bot.db_client
+import littleNetHelper.db_client
 
-bot.db_client.recreateDatabase()
+littleNetHelper.db_client.recreateDatabase()

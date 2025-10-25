@@ -1,6 +1,4 @@
-# http-chatbots
-practice tasks from UNN course Chatbots on HTTP API (Oleg Sklyarov)
+# little-net-helper
 
 ---
-- ver 10.10.2025 - basic echo with python only
-- ver 17.10.2025 - text + picture echoes with dispatcher
+Little Net helper for System Administators to do their basic commands via Telegram (most useful on iPhones!!)
