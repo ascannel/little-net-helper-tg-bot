@@ -69,5 +69,26 @@ def deleteMessage(chat_id: int, message_id: int) -> dict:
     """
     return makeRequest("deleteMessage", chat_id=chat_id, message_id=message_id)
 
+# "пишет..." / имитация активности
+def sendChatAction(chat_id: int, action: str = "typing") -> dict:
+    return makeRequest("sendChatAction", chat_id=chat_id, action=action)
+
+# безопасное редактирование — игнорирует "message is not modified" и похожие 400
+def safe_edit_message_text(chat_id: int, message_id: int, *, text: str, reply_markup: dict | None = None, parse_mode: str | None = None) -> bool:
+    try:
+        editMessageText(chat_id=chat_id, message_id=message_id, text=text, reply_markup=reply_markup, parse_mode=parse_mode)
+        return True
+    except RuntimeError as e:
+        s = str(e).lower()
+        benign = (
+            "message is not modified" in s or
+            "message to edit not found" in s or
+            "bad request: not found" in s or
+            "message can't be edited" in s
+        )
+        if benign:
+            return False
+        raise
+
 def getFile(file_id: str) -> dict:
     return makeRequest("getFile", file_id=file_id)

@@ -5,11 +5,15 @@ from bot import telegram_client, db_client
 MAIN_MENU_KB = {
     "inline_keyboard": [
         [{"text": "🔁 Ping (ICMP)", "callback_data": "ping:start"}],
+        [{"text": "🔎 DNS (nslookup)", "callback_data": "dns:start"}],
+        [{"text": "❓ WHOIS", "callback_data": "whois:start"}],
+        [{"text": "🔐 TLS info", "callback_data": "tls:start"}], 
+        [{"text": "🧭 My IP", "callback_data": "myip:start"}],
     ]
 }
 
 class MessageMenu(Handler):
-    def canHandle(self, update: dict, state: str = "", data: dict | None = None) -> bool:
+    def canHandle(self, update: dict) -> bool:
         # /start или /menu в личке; либо callback "menu"
         if "message" in update and "text" in update["message"]:
             txt = (update["message"]["text"] or "").strip()
@@ -39,12 +43,11 @@ class MessageMenu(Handler):
                 reply_markup=MAIN_MENU_KB,
             )
 
-        # сбрасываем состояние пользователя
+        # сброс состояния
         if "message" in update:
             telegram_id = update["message"]["from"]["id"]
         else:
             telegram_id = update["callback_query"]["from"]["id"]
         db_client.setUserState(telegram_id, "")
         db_client.setUserData(telegram_id, {})
-
         return HandlerStatus.STOP
