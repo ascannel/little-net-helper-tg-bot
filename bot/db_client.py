@@ -53,10 +53,6 @@ def persistUpdates(updates) -> None:
         con.commit()
 
 def recreateDatabase(drop_existing: bool = True) -> None:
-    """
-    Полное пересоздание БД по пути SQLITE_DB_PATH.
-    drop_existing=True — удалить существующий файл перед созданием.
-    """
     import pathlib
     db_path = pathlib.Path(DB_PATH).expanduser()
 
