@@ -51,3 +51,44 @@ def persistUpdates(updates) -> None:
     with sqlite3.connect(DB_PATH) as con:
         con.executemany("INSERT INTO telegram_updates (payload) VALUES (?)", rows)
         con.commit()
+
+def recreateDatabase(drop_existing: bool = True) -> None:
+    """
+    Полное пересоздание БД по пути SQLITE_DB_PATH.
+    drop_existing=True — удалить существующий файл перед созданием.
+    """
+    import pathlib
+    db_path = pathlib.Path(DB_PATH).expanduser()
+
+    if db_path.parent and not db_path.parent.exists():
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if drop_existing and db_path.exists():
+        db_path.unlink()
+
+    import sqlite3
+    with sqlite3.connect(str(db_path)) as con:
+        cur = con.cursor()
+
+        cur.execute("PRAGMA journal_mode=WAL;")
+        cur.execute("PRAGMA synchronous=NORMAL;")
+        cur.execute("PRAGMA foreign_keys=ON;")
+
+        cur.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS users (
+                telegram_id INTEGER PRIMARY KEY,
+                state       TEXT NOT NULL DEFAULT '',
+                data        TEXT NOT NULL DEFAULT '{}'
+            );
+
+            CREATE TABLE IF NOT EXISTS telegram_updates (
+                id      INTEGER PRIMARY KEY AUTOINCREMENT,
+                payload TEXT NOT NULL
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_users_state ON users(state);
+            """
+        )
+
+        con.commit()
