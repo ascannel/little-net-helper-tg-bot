@@ -52,7 +52,7 @@ def persistUpdates(updates) -> None:
         con.executemany("INSERT INTO telegram_updates (payload) VALUES (?)", rows)
         con.commit()
 
-def recreateDatabase(drop_existing: bool = True) -> None:
+def recreateDatabase(drop_existing: bool = False) -> None:
     import pathlib
     db_path = pathlib.Path(DB_PATH).expanduser()
 

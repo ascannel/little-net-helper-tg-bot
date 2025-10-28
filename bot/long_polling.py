@@ -1,7 +1,9 @@
-from bot.dispatcher import Dispatcher
-import bot.telegram_client
+import logging
 import time
 import traceback
+
+from bot.dispatcher import Dispatcher
+import bot.telegram_client
 
 def startLongPolling(dispatcher: Dispatcher) -> None:
     next_offset = 0
@@ -11,7 +13,7 @@ def startLongPolling(dispatcher: Dispatcher) -> None:
                 offset=next_offset, timeout=50, limit=100
             )
         except Exception as e:
-            # logging.warning("getUpdates failed: %s", e)
+            logging.warning("getUpdates failed: %s", e)
             time.sleep(2)
             continue
         for upd in updates:
